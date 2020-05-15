@@ -12,7 +12,9 @@ eventlet==0.25.2          # via nameko
 greenlet==0.4.15          # via eventlet
 idna==2.9                 # via requests
 importlib-metadata==1.6.0  # via kombu, path
+jinja2==2.11.2            # via -r requirements/base.in
 kombu==4.6.8              # via nameko
+markupsafe==1.1.1         # via jinja2
 mock==4.0.2               # via nameko
 monotonic==1.5            # via eventlet
 nameko==2.12.0            # via -r requirements/base.in
