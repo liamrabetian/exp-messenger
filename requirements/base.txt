@@ -19,6 +19,7 @@ nameko==2.12.0            # via -r requirements/base.in
 path.py==12.4.0           # via nameko
 path==13.1.0              # via path.py
 pyyaml==5.3.1             # via nameko
+redis==3.5.2              # via -r requirements/base.in
 requests==2.23.0          # via nameko
 six==1.14.0               # via eventlet, nameko
 urllib3==1.25.9           # via requests
