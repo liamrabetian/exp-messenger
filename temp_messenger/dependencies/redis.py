@@ -1,5 +1,5 @@
 from redis import StrictRedis
-from nameko.extenssions import DependencyProvider
+from nameko.extensions import DependencyProvider
 
 
 class RedisError(Exception):
@@ -30,5 +30,5 @@ class MessageStore(DependencyProvider):
     def stop(self):
         del self.client
     
-    def get_dependency(self):
+    def get_dependency(self, worker_ctx):
         return self.client
