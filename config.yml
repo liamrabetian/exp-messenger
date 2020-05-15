@@ -1,0 +1,2 @@
+AMQP_URI: 'pyamqp://guest:guest@localhost'
+rpc_exchange: 'nameko-rpc'
