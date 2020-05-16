@@ -4,7 +4,7 @@ from nameko.rpc import rpc, RpcProxy
 from nameko.web.handlers import http
 
 from .dependencies import MessageStore, Jinja2
-from .helpers import create_html_response, sort_messages_by_expiry
+from .helpers import create_html_response, sort_messages_by_expiry, create_json_response
 
 
 class HelloService:
@@ -51,6 +51,11 @@ class WebServer:
         self.message_service.save_message(message)
 
         return 204, ""
+
+    @http("GET", "/messages")
+    def get_messages(self, request):
+        messages = self.message_service.get_all_messages()
+        return create_json_response(messages)
 
 
 class MessageService:
