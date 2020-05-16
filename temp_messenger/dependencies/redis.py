@@ -28,7 +28,11 @@ class RedisClient:
 
     def get_all_messages(self):
         return [
-            {"id": message_id, "message": self.redis.get(message_id)}
+            {
+                "id": message_id,
+                "message": self.redis.get(message_id),
+                "expires_in": self.redis.pttl(message_id),
+            }
             for message_id in self.redis.keys()
         ]
 
