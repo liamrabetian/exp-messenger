@@ -1,9 +1,15 @@
+import bcrypt
 from nameko_sqlalchemy import DatabaseSession
 from sqlalchemy.exc import IntegrityError, NoResultFound
 
 from .users_model import Base, User
 from temp_messenger.helpers import hash_password
-from .exceptions import UserAlreadyExists, CreateUserError, UserNotFound
+from .exceptions import (
+    UserAlreadyExists,
+    CreateUserError,
+    UserNotFound,
+    AuthenticationError,
+)
 
 
 class UserWrapper:
@@ -41,6 +47,13 @@ class UserWrapper:
             raise UserNotFound(message)
 
         return user
+
+    def authenticate(self, email, password):
+        user = self.get(email)
+
+        if not bcrypt.checkpw(password.encode(), user.password):
+            message = "Incorrect password for {}".format(email)
+            raise AuthenticationError(message)
 
 
 class UserStore(DatabaseSession):

@@ -12,3 +12,7 @@ class UserAlreadyExists(CreateUserError):
 
 class UserNotFound(Exception): 
     pass
+
+
+class AuthenticationError(Exception): 
+    pass
