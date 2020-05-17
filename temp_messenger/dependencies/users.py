@@ -1,7 +1,9 @@
 from nameko_sqlalchemy import DatabaseSession
+from sqlalchemy.exc import IntegrityError
 
 from .users_model import Base, User
 from temp_messenger.helpers import hash_password
+from .exceptions import UserAlreadyExists, CreateUserError
 
 
 class UserWrapper:
@@ -16,7 +18,19 @@ def create(self, **kwargs):
 
     user = User(**kwargs)
     self.session.add(user)
-    self.session.commit()
+
+    try: 
+        self.session.commit() 
+    except IntegrityError as err: 
+        self.session.rollback()
+        error_message = err.args[0]
+ 
+        if 'already exists' in error_message: 
+            email = kwargs['email'] 
+            message = f'User already exists - {email}' 
+            raise UserAlreadyExists(message)
+        else: 
+            raise CreateUserError(error_message)
 
 
 class UserStore(DatabaseSession):

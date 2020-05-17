@@ -2,10 +2,7 @@ from uuid import uuid4
 
 from redis import StrictRedis
 from nameko.extensions import DependencyProvider
-
-
-class RedisError(Exception):
-    pass
+from .exceptions import RedisError
 
 
 class RedisClient:
