@@ -8,3 +8,7 @@ class CreateUserError(Exception):
 
 class UserAlreadyExists(CreateUserError):
     pass
+
+
+class UserNotFound(Exception): 
+    pass
